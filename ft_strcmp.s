@@ -5,9 +5,10 @@ global ft_strcmp
 ft_strcmp:
 	movsx rax, byte[rdi]
 	sub al, byte[rsi]
-	cmp rax, 0x0
+	cmp al, 0x0
 	je next
-	ret
+	jl is_lesser
+	jg is_greater
 next:
 	cmp byte[rdi], 0x0
 	je stop
@@ -15,4 +16,10 @@ next:
 	inc rsi
 	jmp ft_strcmp
 stop:
+	ret
+is_lesser:
+	mov rax, -1
+	ret
+is_greater:
+	mov rax, 1
 	ret
