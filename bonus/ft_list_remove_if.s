@@ -32,9 +32,12 @@ free:
     jne relink
     mov r11, [rdi]
     mov [r10], r11
-    push r8
+    push qword[rdi + 1*8]
+    push rcx
     call rcx
-    pop r8
+    pop rcx
+    pop rdi
+    call rcx
     jmp end
 
 relink:
@@ -42,11 +45,23 @@ relink:
     mov qword[r11] , r9
     push r11
     push r10
-    push r8
     push rdx
+    push r8
+    push rcx
+    push qword[rdi + 1*8]
     call rcx
-    pop rdx
+    pop rdi
+    pop rcx
     pop r8
+    jmp remove_element
+
+    remove_element:
+    push r8
+    push rcx
+    call rcx
+    pop rcx
+    pop r8
+    pop rdx
     pop r10
     pop rdi
     jmp compare

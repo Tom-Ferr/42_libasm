@@ -3,9 +3,9 @@
     
     #include <stdio.h>
     #include <unistd.h>
-    #include <string.h>
     #include <stdlib.h>
     #include <errno.h>
+    #include <fcntl.h>
 
     size_t ft_strlen(const char*);
     ssize_t ft_write(int, const void*, size_t);

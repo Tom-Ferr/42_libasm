@@ -1,4 +1,5 @@
 #include "libasm_bonus.h"
+#include "string.h"
 
 int main(){
 
@@ -32,12 +33,28 @@ int main(){
         int* data = (int*)malloc(sizeof(int));
         *data = 42;
         t_list* lst = ft_create_elem(data);
-        int* data2 = (int*)malloc(sizeof(int));
-        *data2 = 21;
-        ft_list_push_front(&lst, data2);
 
-        printf("%d\n",  *((int*)lst->data));
-        printf("%d\n",  *((int*)lst->next->data));
+        int len = 7;
+        while(len){
+                int* data2 = (int*)malloc(sizeof(int));     
+                if(len % 2){
+                    *data2 = rand() % 100;
+                    ft_list_push_front(&lst, data2);
+                }
+                else {
+                    *data2 = 42;
+                    ft_list_push_front(&lst, data2);
+
+                }
+            --len;
+        }
+        
+
+       t_list* plst = lst;
+        while(plst){
+            printf("%d, ",  *((int*)plst->data));
+            plst = plst->next;
+        };
 
 
         printf("\nList_Size\n");
@@ -45,71 +62,64 @@ int main(){
         int size = ft_list_size(lst);
         printf("%d\n", size);
 
-        ft_list_remove_if(&lst, data2, ft_strcmp, free);
-        size = ft_list_size(lst);
-        printf("%d\n", size);
-        printf("%d\n",  *((int*)lst->data));
+
+        printf("\nList_Remove_If\n");
+
         ft_list_remove_if(&lst, data, ft_strcmp, free);
+
         size = ft_list_size(lst);
-        printf("%d\n", size);
-        free(data);
-        free(data2);
+        plst = lst;
+        while(plst){
+            printf("%d, ",  *((int*)plst->data));
+            plst = plst->next;
+        };
+        printf("\nlst size: %d\n", size);
+        plst = lst;
+        while(plst){
+            free(plst->data);
+            t_list* del = plst;
+            plst = plst->next;
+            free(del);
+        }
     }
 
      printf("\nList_Sort\n");
     {
-        int* data = (int*)malloc(sizeof(int));
+        //create list
+        char* data = (char*)malloc(sizeof(char));
         *data = 42;
         t_list* lst = ft_create_elem(data);
-        int* data2 = (int*)malloc(sizeof(int));
-        *data2 = 21;
-        ft_list_push_front(&lst, data2);
-        int* data3 = (int*)malloc(sizeof(int));
-        *data3 = 76;
-        ft_list_push_front(&lst, data3);
-        int* data4 = (int*)malloc(sizeof(int));
-        *data4 = 13;
-        ft_list_push_front(&lst, data4);
-        int* data5 = (int*)malloc(sizeof(int));
-        *data5 = 22;
-        ft_list_push_front(&lst, data5);
-        int* data6 = (int*)malloc(sizeof(int));
-        *data6 = 58;
-        ft_list_push_front(&lst, data6);
-        int* data7 = (int*)malloc(sizeof(int));
-        *data7 = 92;
-        ft_list_push_front(&lst, data7);
-        int* data8 = (int*)malloc(sizeof(int));
-        *data8 = 5;
-        ft_list_push_front(&lst, data8);
 
+        int len = 7;
+        while(len--){
+            data = (char*)malloc(sizeof(char));
+                *data = rand() % 255;
+             ft_list_push_front(&lst, data);
+        }
+
+        //print list
         t_list* plst = lst;
         while(plst){
-            printf("%d, ",  *((int*)plst->data));
+            printf("%d, ",  *((char*)plst->data));
             plst = plst->next;
         }
         printf("\n");
 
+        //sort
         ft_list_sort(&lst, ft_strcmp);
 
+        //print sorted list
         plst = lst;
         while(plst){
-            printf("%d, ",  *((int*)plst->data));
+            printf("%d, ",  *((char*)plst->data));
             plst = plst->next;
         }
         printf("\n");
 
-        free(data);
-        free(data2);
-        free(data3);
-        free(data4);
-        free(data5);
-        free(data6);
-        free(data7);
-        free(data8);
-
+        //free list
         plst = lst;
         while(plst){
+            free(plst->data);
             t_list* del = plst;
             plst = plst->next;
             free(del);

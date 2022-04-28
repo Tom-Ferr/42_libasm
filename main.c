@@ -26,21 +26,42 @@ int main(){
 		ssize_t l = ft_write(1, "Hello, dear\n",12);
 		printf("\nft_write returned: %zd\n", l);
 
+
+		printf("\nWrite in Wrong Fd:\n");
 		l = ft_write(10, "Hello, dear\n",12);
 		printf("\nft_write returned: %zd\n", l);
 		printf("\nerrno: %d\n", errno);
+
+		printf("\nWrite in File\n");
+		int fd = open("testing.txt", O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
+
+		l = ft_write(fd, "Awsome!!!\n", 10);
+		printf("\nft_write returned: %zd\n", l);
+		close(fd);
 
 	}
 
 	printf("\n---ft_read---\n");
 	{
-		char* buff[100];
+		printf("Read from STD_IN:\n");
+		char buff[100];
 		ssize_t l = ft_read(0, buff,100);
-		printf("\nft_read returned: %zd\n", l);
+		printf("STD_IN: %s\n", buff);
+		printf("ft_read returned: %zd\n", l);
 
+		printf("\nRead from Wrong Fd:\n");
 		l = ft_read(10, buff,100);
+		printf("ft_write returned: %zd\n", l);
+		printf("errno: %d\n", errno);
+
+		int fd = open("testing.txt", O_RDONLY);
+
+		printf("\nRead from File Fd:\n");
+		l = ft_read(fd, buff,100);
+		printf("data: %s\n", buff);
 		printf("\nft_write returned: %zd\n", l);
-		printf("\nerrno: %d\n", errno);
+		close(fd);
+
 
 	}
 

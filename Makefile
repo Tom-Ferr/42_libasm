@@ -38,7 +38,7 @@ main:		all
 run:		main
 			./${OUT}
 clean:
-			rm -f ${OBJ} ${OBJ_BONUS}
+			rm -f ${OBJ} ${OBJ_BONUS} testing.txt
 
 fclean:		clean
 			rm -f ${NAME} ${OUT}*

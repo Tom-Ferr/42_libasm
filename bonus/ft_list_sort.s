@@ -13,7 +13,7 @@ ft_list_sort:
 compare:
     push rdi
     push rsi
-    mov rdi, [rdi + 1*8]    ; rxi = lst->data
+    mov rdi, [rdi + 1*8]    ; rdi = lst->data
     mov rsi, [rsi + 1*8]    ; rsi = lst->next->data
     call r11
     pop rsi
